@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  odoo17e:
+    image: odoo-17e:17
+    depends_on:
+            - postgres12
+    ports:
+      - 8017:8069
+    volumes:
+      - ./odoo.conf:/etc/odoo/odoo.conf
+      - ./addons:/mnt/extra-addons
+    environment:
+      - HOST=postgres12
+      - USER=odoo17e
+      - PASSWORD=odoo17e
+  postgres12:
+    image: postgres:12
+    ports:
+     - 5417:5432
+    environment:
+      - POSTGRES_PASSWORD=odoo17e
+      - POSTGRES_USER=odoo17e
+      - POSTGRES_DB=postgres  # Leave this set to postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+
